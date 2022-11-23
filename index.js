@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const mongoStore= require("connect-mongo")
 const ejs = require("ejs");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -26,7 +27,12 @@ const app = new express();
 
 global.loggedIn = null;
 
-app.use(expressSession({secret: "kathi537", resave: false, saveUninitialized: true}));
+app.use(expressSession(
+  {secret: "kathi537", 
+  resave: false,
+  saveUninitialized: true,
+  store: mongoStore.create({mongoUrl:process.env.MONGO_URL})}
+  ));
 app.use("*", loggedInMiddleware)
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
