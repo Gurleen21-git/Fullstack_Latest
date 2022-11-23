@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const ejs = require("ejs");
 const path = require("path");
@@ -35,7 +37,7 @@ app.set("view engine", "ejs");
 
 
 mongoose.connect(
-  "mongodb+srv://Dilverjeet:Dilver%40123@cluster0.c7nmmw2.mongodb.net/DriveApp?retryWrites=true&w=majority",
+  process.env.MONGO_URL,
   { useNewUrlParser: true }
   );
 
